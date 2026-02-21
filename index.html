@@ -88,6 +88,18 @@ nav.scrolled .nav-toggle span { background:var(--ink); }
 .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.9s ease,transform 0.9s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
+/* LIVE LOGO OVERLAY ON VIDEOS */
+.live-logo{
+  width: min(320px, 78%);
+  height: auto;
+  margin-bottom: 2px;          /* sit nicely at bottom */
+  filter:
+    drop-shadow(0 0 8px rgba(255, 210, 120, 0.85))
+    drop-shadow(0 0 18px rgba(255, 180, 80, 0.45))
+    drop-shadow(0 10px 22px rgba(0,0,0,0.55));
+  opacity: 0.95;
+}
+
 /* ABOUT */
 .about-wrap { background:var(--cream); padding:100px 24px 90px; }
 .bio-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:56px; align-items:start; max-width:900px; margin:0 auto; }
@@ -301,6 +313,69 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
   aspect-ratio: 1 / 1 !important;
 }
 
+
+
+/* LIVE SESSIONS */
+.live-wrap{ padding: 44px 24px; }
+.live-inner{ width: min(1060px, 100%); margin: 0 auto; }
+.live-card{ margin-top: 18px; }
+
+.live-player{
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 18px 55px rgba(30,24,16,0.12);
+}
+.live-horizontal{ aspect-ratio: 16 / 9; }
+.live-vertical{
+  aspect-ratio: 9 / 16;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.live-player iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Overlay + glow wordmark (words only) */
+.live-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  padding: 18px 18px 16px;
+  pointer-events:none;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+}
+  .live-wordmark{
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: rgba(255, 236, 200, 0.96);
+  text-shadow:
+    0 0 6px  rgba(255, 210, 120, 0.85),
+    0 0 14px rgba(255, 190,  90, 0.60),
+    0 0 28px rgba(255, 165,  60, 0.35),
+    0 10px 22px rgba(0,0,0,0.55);
+  font-family: 'Playfair Display', serif;
+}
+.live-top{ font-size: 13px; opacity: .98; margin-bottom: 2px; }
+.live-mid{ font-size: 12px; opacity: .88; margin-bottom: 6px; }
+.live-title{ font-size: 16px; letter-spacing: .05em; line-height: 1.15; max-width: 40ch; }
+
+/* Mobile: vertical goes full screen */
+@media (max-width: 640px){
+  .live-vertical{
+    width: 100vw;
+    height: 100svh;
+    max-width: none;
+    border-radius: 0;
+  }
+}
 </style>
 </head>
 <body>
@@ -312,6 +387,7 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
     <li><a href="#gallery" onclick="closeMenu()">Photos</a></li>
     <li><a href="#shows" onclick="closeMenu()">Shows</a></li>
     <li><a href="#music" onclick="closeMenu()">Music</a></li>
+    <li><a href="#live" onclick="closeMenu()">Live</a></li>
     <li><a href="#contact" onclick="closeMenu()">Booking</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -341,15 +417,16 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
     </div>
     <div class="reveal" style="padding-top:6px;">
       <p class="section-label">About</p>
-      <h2 class="section-title">Hazy horizons &amp;<br/><em>golden reverie</em></h2>
-      <div class="bio-text">
-        <p>Music that feels like a dream of a city at dusk&mdash;washed in hazy pastels, where neon signs hum in the distance and streets shimmer after the rain.</p>
-        <p>Skyrise Coast is a Brooklyn-based indie dream pop project. Blending the laid-back elegance of jazz and surfy guitar tones with the moody intimacy of indie rock, the music drifts between cool detachment and quiet vulnerability&mdash;balancing sharp melodies with atmospheric textures.</p>
-        <p>Cinematic yet unpolished, like a grainy film reel&mdash;reminiscent of lost 70s soundtracks, the jazz-inflected melancholy of classic French films, and the effortless cool of a forgotten surf record spinning in a Lower East Side apartment.</p>
+      <h2 class="section-title">LATE-NIGHTS  &amp;<br/><em>MELANCHOLY</em></h2>
+  <div class="bio-text">
+  <p>Skyrise Coast is a Brooklyn-based indie project crafted from Upper West Bushwick.</p>
+
+  <p>The sound folds jazzy undercurrents into surf guitar shimmer, and indie-rock closeness. It's cool on the surface, and vulnerable underneath, where bright melodies move through shadowy air.</p>
+
+  <p>It’s music for never-ending city nights, and love as a casino, and the kind of deep-bar conversations you swear you’ll remember until you never see them again, and heartbreak stretched across the Mediterranean.</p>
+</div>
         <div class="stat-row">
-          <div class="stat"><span class="stat-num">NYC</span><span class="stat-label">Based</span></div>
-          <div class="stat"><span class="stat-num">'24</span><span class="stat-label">Active</span></div>
-          <div class="stat"><span class="stat-num">&#x221E;</span><span class="stat-label">Feelings</span></div>
+         
         </div>
       </div>
     </div>
@@ -447,7 +524,7 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
       </div>
       <div class="show-row">
         <div><div class="show-month">JAN</div><div class="show-date-sub">30 &middot; 2025</div></div>
-        <div><div class="show-name">Joanne Trattoria Open Mic Night</div><div class="show-venue">Upper West Side &middot; New York City</div><div class="show-tag">&#x2713; Performed</div></div>
+        <div><div class="show-name">Joanne Trattoria Open Mic Night</div><div class="show-venue">70 W 68th St &middot; New York City</div><div class="show-tag">&#x2713; Performed</div></div>
       </div>
       <div class="show-row">
         <div><div class="show-month">NOV</div><div class="show-date-sub">22&ndash;26 &middot; 2024</div></div>
@@ -474,6 +551,77 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
     </div>
   </div>
 </div>
+
+
+<div class="divider"></div>
+
+<!-- LIVE SESSIONS -->
+<div class="live-wrap" id="live">
+  <div class="live-inner">
+
+    <div class="reveal">
+      <p class="section-label">Live Sessions</p>
+      <h2 class="section-title">Live at the<br/><em>scene</em></h2>
+    </div>
+
+    <!-- SESSIONE SICILIA 01 -->
+    <div class="live-card reveal">
+      <div class="live-player live-horizontal">
+        <iframe
+          title="vimeo-player"
+          src="https://player.vimeo.com/video/1167004852?h=d3915e553c&title=0&byline=0&portrait=0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          allowfullscreen>
+        </iframe>
+
+<div class="live-overlay" aria-hidden="true">
+          <div class="live-wordmark">
+            <div class="live-title">SKYRISE COAST - FIRE </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSIONE SICILIA 02 -->
+    <div class="live-card reveal">
+      <div class="live-player live-horizontal">
+        <iframe
+          title="vimeo-player"
+          src="https://player.vimeo.com/video/1166991563?h=2cb837fbe9&title=0&byline=0&portrait=0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          allowfullscreen>
+        </iframe>
+
+        <div class="live-overlay" aria-hidden="true">
+          <div class="live-wordmark">
+            <div class="live-title">SKYRISE COAST - YOUNG & FREE </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BROOKLYN BEDROOM (vertical, full screen on mobile) -->
+    <div class="live-card reveal">
+      <div class="live-player live-vertical">
+        <iframe
+          title="vimeo-player"
+          src="https://player.vimeo.com/video/1166992311?h=56aadfd522&title=0&byline=0&portrait=0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          allowfullscreen>
+        </iframe>
+
+        <div class="live-overlay" aria-hidden="true">
+          <div class="live-wordmark">
+         <div class="live-title">SKYRISE COAST - ALMOST LOVE ft. JASMINE LI </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 
 <!-- PRESS -->
 <div class="press-wrap" id="press">
