@@ -485,15 +485,6 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
   100% { transform: translateX(-110%); opacity: 0; }
 }
 
-/* Mobile: vertical goes full screen */
-@media (max-width: 640px){
-  .live-vertical{
-    width: 100vw;
-    height: 100svh;
-    max-width: none;
-    border-radius: 0;
-  }
-}
 
 /* Live session cinematic logo overlay */
 .live-logo-overlay {
@@ -587,6 +578,7 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
   opacity: 0.85;
 }
 </style>
+  <script src="https://player.vimeo.com/api/player.js"></script>
 </head>
 <body>
 
@@ -863,7 +855,7 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
 
     <!-- BROOKLYN BEDROOM (vertical, full screen on mobile) -->
     <div class="live-card reveal">
-      <div class="live-player live-vertical">
+      <div class="live-player live-horizontal">
         <iframe
           title="vimeo-player"
           src="https://player.vimeo.com/video/1166992311?h=56aadfd522&title=0&byline=0&portrait=0"
@@ -988,6 +980,26 @@ function closeLightbox() {
   }, { threshold: 0.15 });
   document.querySelectorAll('.live-overlay').forEach(el => liveOverlayObs.observe(el));
 
+
+  // Mobile: enter fullscreen automatically when play starts
+  (function() {
+    const isMobile = ('ontouchstart' in window) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isMobile) return;
+
+    document.querySelectorAll('.live-player iframe').forEach(function(iframe) {
+      var player = new Vimeo.Player(iframe);
+
+      player.on('play', function() {
+        player.requestFullscreen().catch(function() {
+          // Fallback: try native fullscreen on the iframe element itself
+          var el = iframe;
+          if (el.requestFullscreen)            el.requestFullscreen();
+          else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+          else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+        });
+      });
+    });
+  })();
 
 </script>
 </body>
