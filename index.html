@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skyrise Coast — EPK</title>
+<title>SKYRISE COAST 🎸💙🕊️ — EPK</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
@@ -169,9 +169,9 @@ nav.scrolled .nav-toggle span { background:var(--ink); }
 /* UPCOMING */
 .upcoming-wrap { background:var(--ink); padding:80px 24px; }
 .upcoming-inner { max-width:900px; margin:0 auto; }
-.upcoming-wrap .section-label { color:var(--steel-dim); }
+.upcoming-wrap .section-label { color:var(--amber-dim); }
 .upcoming-wrap .section-label::after { background:linear-gradient(to right,rgba(184,137,42,0.25),transparent); }
-.upcoming-wrap .section-title { color:var(--cream); }
+.upcoming-wrap .section-title { color:var(--ink); }
 .upcoming-wrap .section-title em { color:var(--amber-lit); }
 
 .upcoming-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
@@ -195,23 +195,23 @@ nav.scrolled .nav-toggle span { background:var(--ink); }
 /* ===== Upcoming: cool down the brown ===== */
 
 /* The big section background */
-.upcoming-wrap { background:#09111D !important; }  /* blue-black */
+.upcoming-wrap { background:var(--cream) !important; }
 
 /* The show cards surface (slightly cool + visible) */
 .upcoming-card {
-  background: rgba(235, 245, 255, 0.05) !important; /* cool tint */
-  border-color: rgba(120, 170, 210, 0.22) !important; /* cool edge */
+  background: rgba(139, 102, 24, 0.06) !important;
+  border-color: rgba(139, 102, 24, 0.22) !important;
 }
 
 /* Optional: the top shimmer line */
 .upcoming-card::before{
-  background: linear-gradient(90deg, transparent, rgba(120,170,210,0.45), transparent) !important;
+  background: linear-gradient(90deg, transparent, rgba(184,137,42,0.45), transparent) !important;
 }
 .upcoming-card:hover { border-color:rgba(184,137,42,0.45); }
 .upcoming-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(184,137,42,0.5),transparent); }
 .uc-date { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.82rem; letter-spacing:0.12em; color:var(--amber-lit); margin-bottom:10px; }
-.uc-name { font-family:'Playfair Display',serif; font-weight:900; font-size:1.25rem; line-height:1.1; color:var(--cream); margin-bottom:6px; }
-.uc-venue { font-size:0.74rem; color:rgba(240,235,225,0.45); letter-spacing:0.06em; }
+.uc-name { font-family:'Playfair Display',serif; font-weight:900; font-size:1.25rem; line-height:1.1; color:var(--ink); margin-bottom:6px; }
+.uc-venue { font-size:0.74rem; color:var(--muted); letter-spacing:0.06em; }
 .uc-presenter { font-size:0.65rem; color:rgba(184,137,42,0.5); margin-top:4px; font-style:italic; }
 .uc-tag { margin-top:14px; display:inline-block; font-size:0.57rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber-lit); border:1px solid rgba(184,137,42,0.3); padding:5px 12px; border-radius:100px; }
 
@@ -342,30 +342,148 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
   border: 0;
 }
 
-/* Overlay + glow wordmark (words only) */
-.live-overlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:flex-end;
-  padding: 18px 18px 16px;
-  pointer-events:none;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+/* ── Live overlay: ticker crawl + cinematic lower-third ── */
+.live-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0) 18%),
+    linear-gradient(to top,   rgba(0,0,0,0.70) 0%, rgba(0,0,0,0) 18%);
+  justify-content: flex-start;
 }
-  .live-wordmark{
+
+/* ── Ticker crawl (loops continuously) ── */
+.live-ticker-wrap {
+  overflow: hidden;
+  padding: 5px 0 6px;
+  border-top: 1px solid rgba(200,146,42,0.22);
+  background: rgba(0,0,0,0.30);
+}
+.live-ticker-track {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  animation: tickerCrawl 24s linear infinite;
+}
+@keyframes tickerCrawl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes tickerCrawlReverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+/* Top ticker: scrolls in the opposite direction */
+.live-ticker-top {
+  border-top: none;
+  border-bottom: 1px solid rgba(200,146,42,0.22);
+  padding: 5px 0 6px;
+}
+.live-ticker-top .live-ticker-track {
+  animation: tickerCrawlReverse 24s linear infinite;
+}
+.live-ticker-item {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  color: rgba(215,160,50,0.95);
   text-transform: uppercase;
-  letter-spacing: 0.10em;
+  text-shadow:
+    0 0 8px  rgba(212,160,64,0.85),
+    0 0 20px rgba(212,160,64,0.45),
+    0 0 38px rgba(212,160,64,0.20);
+}
+.live-ticker-sep {
+  font-size: 10px;
+  color: rgba(212,160,64,0.55);
+  padding: 0 16px;
+  vertical-align: middle;
+  text-shadow: 0 0 8px rgba(212,160,64,0.6);
+}
+
+/* ── Lower-third: session label + song title (slide in → hold → slide out) ── */
+.live-lower-third {
+  padding: 0 18px 10px;
+  overflow: hidden;
+}
+.live-lt-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: rgba(200,146,42,0.90);
+  margin-bottom: 4px;
+  transform: translateX(110%);
+  opacity: 0;
+}
+.live-lt-title {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 0.04em;
   color: rgba(255, 236, 200, 0.96);
   text-shadow:
-    0 0 6px  rgba(255, 210, 120, 0.85),
-    0 0 14px rgba(255, 190,  90, 0.60),
-    0 0 28px rgba(255, 165,  60, 0.35),
-    0 10px 22px rgba(0,0,0,0.55);
-  font-family: 'Playfair Display', serif;
+    0 0 8px  rgba(255, 210, 120, 0.80),
+    0 0 18px rgba(255, 190,  90, 0.50),
+    0 8px 20px rgba(0,0,0,0.70);
+  transform: translateX(110%);
+  opacity: 0;
 }
-.live-top{ font-size: 13px; opacity: .98; margin-bottom: 2px; }
-.live-mid{ font-size: 12px; opacity: .88; margin-bottom: 6px; }
-.live-title{ font-size: 16px; letter-spacing: .05em; line-height: 1.15; max-width: 40ch; }
+
+/* Trigger lower-third when parent gets .animate — offset so it fires after logo fades */
+.live-overlay.animate .live-lt-label {
+  animation: lowerThird 13s ease 9.5s forwards;
+}
+.live-overlay.animate .live-lt-title {
+  animation: lowerThird 13s ease 9.85s forwards; /* tiny stagger after label */
+}
+
+.live-ticker-spacer { flex: 1; }
+
+/* Session group labels */
+.live-session-label {
+  margin: 38px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(1.1rem, 3vw, 1.55rem);
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+.live-session-label em {
+  font-style: italic;
+  color: var(--amber);
+}
+.live-session-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(139,102,24,0.30), transparent);
+}
+.live-session-label:first-of-type {
+  margin-top: 24px;
+}
+
+@keyframes lowerThird {
+  0%   { transform: translateX(110%);  opacity: 0; }
+  8%   { transform: translateX(0);     opacity: 1; }
+  72%  { transform: translateX(0);     opacity: 1; }
+  88%  { transform: translateX(-110%); opacity: 0; }
+  100% { transform: translateX(-110%); opacity: 0; }
+}
 
 /* Mobile: vertical goes full screen */
 @media (max-width: 640px){
@@ -375,6 +493,98 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
     max-width: none;
     border-radius: 0;
   }
+}
+
+/* Live session cinematic logo overlay */
+.live-logo-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+}
+.live-logo-overlay.animate {
+  animation: liveLogoReveal 11.5s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+}
+@keyframes liveLogoReveal {
+  0%   { opacity: 0; }
+  7%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.live-logo-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.28) 100%);
+}
+.live-logo-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 44px;
+}
+.live-logo-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: #c8922a;
+  border-style: solid;
+  opacity: 0.65;
+}
+.live-logo-corner.tl { top:0; left:0; border-width:1px 0 0 1px; }
+.live-logo-corner.tr { top:0; right:0; border-width:1px 1px 0 0; }
+.live-logo-corner.bl { bottom:0; left:0; border-width:0 0 1px 1px; }
+.live-logo-corner.br { bottom:0; right:0; border-width:0 1px 1px 0; }
+.live-logo-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 0.87;
+  text-align: center;
+  color: #f5e8c8;
+  text-shadow: 0 0 50px rgba(212,160,64,0.55), 0 2px 18px rgba(0,0,0,0.9);
+  opacity: 0;
+  letter-spacing: 0.35em;
+}
+.live-logo-name.animate {
+  animation: liveLogoText 11.5s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+}
+@keyframes liveLogoText {
+  0%   { opacity: 0; letter-spacing: 0.35em; }
+  7%   { opacity: 1; letter-spacing: -0.02em; }
+  80%  { opacity: 1; letter-spacing: -0.02em; }
+  100% { opacity: 0; letter-spacing: -0.02em; }
+}
+.live-logo-rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  width: 100%;
+  opacity: 0;
+}
+.live-logo-rule.animate {
+  animation: liveLogoReveal 11.5s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+}
+.live-logo-rule-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c8922a, transparent);
+  opacity: 0.45;
+}
+.live-logo-diamond {
+  width: 5px;
+  height: 5px;
+  background: #d4a040;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(212,160,64,0.7);
+  opacity: 0.85;
 }
 </style>
 </head>
@@ -402,7 +612,6 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
   <div class="frame">
     <div class="corner tl"></div><div class="corner tr"></div>
     <div class="corner bl"></div><div class="corner br"></div>
-    <p class="eyebrow">electronic press kit</p>
     <h1 class="band-name">SKYRISE<br>COAST</h1>
     <div class="rule"><div class="rule-line"></div><div class="diamond"></div><div class="rule-line"></div></div>
   </div>
@@ -491,7 +700,7 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
           <div class="uc-date">March 18, 2026</div>
           <div class="uc-name">Proof Social Club</div>
           <div class="uc-venue">Honolulu, HI</div>
-          <div class="uc-presenter">Aloha From Brooklyn Presents</div>
+          <div class="uc-name">Presented by Aloha From Brooklyn</div>
           <div class="uc-tag">&#x25B8;&nbsp; Upcoming</div>
         </div>
         <div class="japan-teaser">
@@ -564,6 +773,8 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
       <h2 class="section-title">Live at the<br/><em>scene</em></h2>
     </div>
 
+    <h3 class="live-session-label reveal">Euro Yankees Cap — <em>Sessione Sicilia</em></h3>
+
     <!-- SESSIONE SICILIA 01 -->
     <div class="live-card reveal">
       <div class="live-player live-horizontal">
@@ -574,9 +785,33 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
           allowfullscreen>
         </iframe>
 
+        <div class="live-logo-overlay" aria-hidden="true">
+          <div class="live-logo-bg"></div>
+          <div class="live-logo-frame">
+            <div class="live-logo-corner tl"></div>
+            <div class="live-logo-corner tr"></div>
+            <div class="live-logo-corner bl"></div>
+            <div class="live-logo-corner br"></div>
+            <h2 class="live-logo-name">SKYRISE<br>COAST</h2>
+            <div class="live-logo-rule">
+              <div class="live-logo-rule-line"></div>
+              <div class="live-logo-diamond"></div>
+              <div class="live-logo-rule-line"></div>
+            </div>
+          </div>
+        </div>
+
 <div class="live-overlay" aria-hidden="true">
-          <div class="live-wordmark">
-            <div class="live-title">SKYRISE COAST - FIRE </div>
+          <div class="live-ticker-wrap live-ticker-top">
+            <div class="live-ticker-track"><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span></div>
+          </div>
+          <div class="live-ticker-spacer"></div>
+          <div class="live-lower-third">
+            <span class="live-lt-label">Sessione Sicilia</span>
+            <span class="live-lt-title">Fire</span>
+          </div>
+          <div class="live-ticker-wrap">
+            <div class="live-ticker-track"><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span></div>
           </div>
         </div>
       </div>
@@ -592,13 +827,39 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
           allowfullscreen>
         </iframe>
 
+        <div class="live-logo-overlay" aria-hidden="true">
+          <div class="live-logo-bg"></div>
+          <div class="live-logo-frame">
+            <div class="live-logo-corner tl"></div>
+            <div class="live-logo-corner tr"></div>
+            <div class="live-logo-corner bl"></div>
+            <div class="live-logo-corner br"></div>
+            <h2 class="live-logo-name">SKYRISE<br>COAST</h2>
+            <div class="live-logo-rule">
+              <div class="live-logo-rule-line"></div>
+              <div class="live-logo-diamond"></div>
+              <div class="live-logo-rule-line"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="live-overlay" aria-hidden="true">
-          <div class="live-wordmark">
-            <div class="live-title">SKYRISE COAST - YOUNG & FREE </div>
+          <div class="live-ticker-wrap live-ticker-top">
+            <div class="live-ticker-track"><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span></div>
+          </div>
+          <div class="live-ticker-spacer"></div>
+          <div class="live-lower-third">
+            <span class="live-lt-label">Sessione Sicilia</span>
+            <span class="live-lt-title">Young &amp; Free</span>
+          </div>
+          <div class="live-ticker-wrap">
+            <div class="live-ticker-track"><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span></div>
           </div>
         </div>
       </div>
     </div>
+
+    <h3 class="live-session-label reveal">Brooklyn Bedroom <em>Sessions</em></h3>
 
     <!-- BROOKLYN BEDROOM (vertical, full screen on mobile) -->
     <div class="live-card reveal">
@@ -610,9 +871,33 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
           allowfullscreen>
         </iframe>
 
+        <div class="live-logo-overlay" aria-hidden="true">
+          <div class="live-logo-bg"></div>
+          <div class="live-logo-frame">
+            <div class="live-logo-corner tl"></div>
+            <div class="live-logo-corner tr"></div>
+            <div class="live-logo-corner bl"></div>
+            <div class="live-logo-corner br"></div>
+            <h2 class="live-logo-name">SKYRISE<br>COAST</h2>
+            <div class="live-logo-rule">
+              <div class="live-logo-rule-line"></div>
+              <div class="live-logo-diamond"></div>
+              <div class="live-logo-rule-line"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="live-overlay" aria-hidden="true">
-          <div class="live-wordmark">
-         <div class="live-title">SKYRISE COAST - ALMOST LOVE ft. JASMINE LI </div>
+          <div class="live-ticker-wrap live-ticker-top">
+            <div class="live-ticker-track"><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span></div>
+          </div>
+          <div class="live-ticker-spacer"></div>
+          <div class="live-lower-third">
+            <span class="live-lt-label">Brooklyn Bedroom</span>
+            <span class="live-lt-title">Almost Love ft. Jasmine Li</span>
+          </div>
+          <div class="live-ticker-wrap">
+            <div class="live-ticker-track"><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span><span class="live-ticker-item">Skyrise Coast</span><span class="live-ticker-sep">◆</span></div>
           </div>
         </div>
       </div>
@@ -679,6 +964,31 @@ function closeLightbox() {
     lb.querySelectorAll('img').forEach(i => i.remove());
   }
   document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+  // Live session cinematic logo – triggers once per video on scroll-into-view
+  const liveLogoObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const overlay = entry.target;
+        overlay.classList.add('animate');
+        overlay.querySelector('.live-logo-name').classList.add('animate');
+        overlay.querySelector('.live-logo-rule').classList.add('animate');
+        liveLogoObs.unobserve(overlay);
+      }
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('.live-logo-overlay').forEach(el => liveLogoObs.observe(el));
+  // Live overlay: trigger ticker + lower-third on scroll-into-view (once)
+  const liveOverlayObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate');
+        liveOverlayObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.live-overlay').forEach(el => liveOverlayObs.observe(el));
+
+
 </script>
 </body>
 </html>
