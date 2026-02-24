@@ -271,9 +271,30 @@ nav.scrolled .nav-toggle span { background:var(--ink); }
 .contact-block p { font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--ink-mid); line-height:1.65; }
 .contact-block a { color:var(--amber); text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.2s; }
 .contact-block a:hover { border-color:var(--amber); }
-.social-links { display:flex; gap:22px; flex-wrap:wrap; margin-top:10px; }
-.social-links a { font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-soft); text-decoration:none; transition:color 0.2s; }
-.social-links a:hover { color:var(--amber); }
+.social-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  align-items: center;
+}
+.social-links a {
+  color: var(--amber-lit);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.18s;
+}
+.social-links a:hover {
+  color: var(--amber);
+  transform: scale(1.12);
+}
+.social-links a svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  fill: currentColor;
+}
 
 /* FOOTER */
 footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:var(--cream); }
@@ -620,58 +641,139 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
 }
 
 /* ── Polaroid frame on each live-card ── */
-/* ── Polaroid frame ── */
+/* ── Polaroid frame — vintage, textured ── */
 .live-card {
   margin-top: 0 !important;
-  /* Warm off-white from real polaroid stock */
-  background: #EDE8DE;
-  /* Thin border on top+sides, generous bottom strip — true polaroid proportions */
-  padding: 10px 10px 58px;
+  position: relative;
+  /* Aged Polaroid stock — warm, distinctly yellowed cream */
+  background-color: #D5C9AF;
+  /* Layer 1: paper-grain noise  |  Layers 2-5: corner age-staining */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 0%   0%,   rgba(90,60,10,0.22) 0%, transparent 58%),
+    radial-gradient(ellipse at 100% 0%,   rgba(90,60,10,0.17) 0%, transparent 58%),
+    radial-gradient(ellipse at 0%   100%, rgba(90,60,10,0.28) 0%, transparent 58%),
+    radial-gradient(ellipse at 100% 100%, rgba(90,60,10,0.22) 0%, transparent 58%);
+  background-size: 160px 160px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  /* Very thin top+sides → dramatic thick bottom: true Polaroid 600 proportions */
+  padding: 7px 7px 86px;
   box-shadow:
-    0 1px 2px  rgba(0,0,0,0.10),
-    0 6px 18px rgba(0,0,0,0.18),
-    0 24px 52px rgba(0,0,0,0.14),
-    inset 0 0 0 1px rgba(0,0,0,0.04);
+    0 2px 4px  rgba(30,20,5,0.18),
+    0 8px 22px rgba(30,20,5,0.22),
+    0 28px 60px rgba(30,20,5,0.16),
+    inset 0 0 0 1px rgba(0,0,0,0.10),
+    inset 0 1px 5px rgba(0,0,0,0.08);  /* top inner shadow = slight curl */
   border-radius: 1px;
   display: flex;
   flex-direction: column;
 }
 
-/* Video photo area — flush to the polaroid border */
+/* Photo area — zero border-radius, inner edge like developed print */
 .live-card .live-player {
   border-radius: 0;
-  box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,0.12);   /* subtle inner edge like developed photo */
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18);
   flex-shrink: 0;
 }
 
-/* Click-to-fullscreen overlay */
+/* ── Click-to-play-fullscreen overlay ── */
 .live-play-overlay {
   position: absolute;
   inset: 0;
   z-index: 20;
   cursor: pointer;
-  background: transparent;
-}
-
-/* Caption strip — inherits the polaroid background */
-.polaroid-caption {
-  background: transparent;
-  padding: 10px 8px 0;
-  min-height: 48px;
+  background: rgba(0,0,0,0);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.25s;
+}
+.live-play-overlay:hover { background: rgba(0,0,0,0.10); }
+/* Circular play button */
+.live-play-overlay::after {
+  content: '';
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background-color: rgba(242,236,224,0.90);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 4v16l13-8z' fill='%231a1610' opacity='0.82'/%3E%3C/svg%3E");
+  background-size: 28px 28px;
+  background-position: 55% 50%;
+  background-repeat: no-repeat;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.40), 0 1px 4px rgba(0,0,0,0.20);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.live-play-overlay:hover::after {
+  transform: scale(1.10);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.50), 0 2px 6px rgba(0,0,0,0.24);
+}
+
+/* Caption strip (bottom white area) — inherits aged card background */
+.polaroid-caption {
+  background: transparent;
+  padding: 10px 10px 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(0,0,0,0.06); /* faint perforation line */
 }
 .polaroid-caption img {
-  max-width: 90%;
-  max-height: 44px;
+  max-width: 88%;
+  max-height: 46px;
   object-fit: contain;
-  /* Slight handwritten feel */
-  filter: contrast(1.05);
+  mix-blend-mode: multiply; /* handwritten ink blends into aged paper */
 }
 
 /* ── Simplified overlay (no top ticker, bottom only) ── */
+
+/* ═══════════════════════════════════════════════════════
+   VIDEO MODAL — iOS Safari + all browsers compatible
+   Uses display:none/flex (not opacity+pointer-events)
+   Uses top/left/width/height (not inset, not aspect-ratio)
+   ═══════════════════════════════════════════════════════ */
+#videoModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: #000;
+  -webkit-overflow-scrolling: touch;
+}
+#videoModal.is-open {
+  display: block;
+}
+#videoModal iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+/* Close — 56px tap target, easy to hit on mobile */
+#videoModalClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.45);
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10000;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 </style>
   <script src="https://player.vimeo.com/api/player.js"></script>
 </head>
@@ -897,6 +999,8 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
             <span class="live-lt-title">Fire</span>
           </div>
         </div>
+
+      <div class="live-play-overlay" onclick="openVideoModal('https://player.vimeo.com/video/1167004852?h=d3915e553c&title=0&byline=0&portrait=0')" role="button" aria-label="Play video"></div>
       </div><!-- end .live-player -->
       <div class="polaroid-caption"></div>
     </div><!-- end .live-card -->
@@ -933,6 +1037,8 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
             <span class="live-lt-title">Young &amp; Free</span>
           </div>
         </div>
+
+      <div class="live-play-overlay" onclick="openVideoModal('https://player.vimeo.com/video/1166991563?h=2cb837fbe9&title=0&byline=0&portrait=0')" role="button" aria-label="Play video"></div>
       </div><!-- end .live-player -->
       <div class="polaroid-caption"></div>
     </div><!-- end .live-card -->
@@ -975,6 +1081,8 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
             <span class="live-lt-title">Almost Love ft. Jasmine Li</span>
           </div>
         </div>
+
+      <div class="live-play-overlay" onclick="openVideoModal('https://player.vimeo.com/video/1166992311?h=56aadfd522&title=0&byline=0&portrait=0')" role="button" aria-label="Play video"></div>
       </div><!-- end .live-player -->
       <div class="polaroid-caption"></div>
     </div><!-- end .live-card -->
@@ -1014,8 +1122,12 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
       <div class="contact-block">
         <h3>Follow Along</h3>
         <div class="social-links">
-          <a href="https://www.instagram.com/skyrisecoast/" target="_blank">Instagram</a>
-          <a href="#" target="_blank">Vimeo</a>
+          <a href="https://www.instagram.com/skyrisecoast/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://vimeo.com/user254883687" target="_blank" rel="noopener" aria-label="Vimeo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 12.5C4.603 9.912 3.834 8.618 3.01 8.618c-.179 0-.806.378-1.881 1.132L0 8.477c1.186-1.044 2.358-2.093 3.506-3.14C5.105 3.97 6.296 3.312 7.079 3.24c1.894-.187 3.063 1.111 3.506 3.894.471 2.983.799 4.844.983 5.551.548 2.48 1.149 3.716 1.804 3.716.508 0 1.274-.804 2.294-2.405 1.022-1.603 1.566-2.83 1.634-3.673.145-1.383-.4-2.079-1.634-2.079-.58 0-1.176.134-1.798.396 1.196-3.91 3.476-5.809 6.842-5.689 2.498.09 3.676 1.694 3.267 4.465z"/></svg>
+          </a>
         </div>
       </div>
     </div>
@@ -1071,32 +1183,57 @@ function closeLightbox() {
   document.querySelectorAll('.live-overlay').forEach(el => liveOverlayObs.observe(el));
 
 
-  // Click-to-fullscreen for all live players (desktop + mobile)
-  document.querySelectorAll('.live-player').forEach(function(playerEl) {
-    var iframe = playerEl.querySelector('iframe');
-    if (!iframe) return;
-
-    var vimeoPlayer = new Vimeo.Player(iframe);
-
-    // Transparent overlay captures the first click before the iframe does
-    var overlay = document.createElement('div');
-    overlay.className = 'live-play-overlay';
-    playerEl.appendChild(overlay);
-
-    overlay.addEventListener('click', function() {
-      // Remove overlay so Vimeo controls become interactive
-      overlay.remove();
-      // Request fullscreen via Vimeo API, then play
-      vimeoPlayer.requestFullscreen().catch(function() {
-        var el = iframe;
-        if (el.requestFullscreen)            el.requestFullscreen();
-        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-        else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
-      });
-      vimeoPlayer.play();
-    });
+  // ── Video modal: open on play click, close on button/backdrop/Escape ────────
+  function openVideoModal(src) {
+    var modal = document.getElementById('videoModal');
+    var frame = document.getElementById('modal-video-frame');
+    // Append autoplay so video starts immediately (user-gesture context)
+    frame.src = src + (src.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
+    modal.classList.add('is-open');
+    // iOS Safari: fix body scroll lock
+    document.body.dataset.scrollY = window.scrollY;
+    document.body.style.overflow  = 'hidden';
+    document.body.style.position  = 'fixed';
+    document.body.style.top       = '-' + window.scrollY + 'px';
+    document.body.style.width     = '100%';
+  }
+  function closeVideoModal() {
+    var modal = document.getElementById('videoModal');
+    var frame = document.getElementById('modal-video-frame');
+    modal.classList.remove('is-open');
+    frame.src = '';
+    // iOS Safari: restore scroll position
+    var sy = parseInt(document.body.dataset.scrollY || '0', 10);
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top      = '';
+    document.body.style.width    = '';
+    window.scrollTo(0, sy);
+  }
+  // Close on dark backdrop click
+  document.getElementById('videoModal').addEventListener('click', function(e) {
+    if (e.target === this) closeVideoModal();
+  });
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeVideoModal();
   });
 
 </script>
+
+<!-- ── Video fullscreen modal ── -->
+<div id="videoModal">
+  <iframe
+    id="modal-video-frame"
+    src=""
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowfullscreen
+    playsinline
+    webkit-playsinline
+    title="Video player">
+  </iframe>
+  <button id="videoModalClose" onclick="closeVideoModal()" aria-label="Close video">&#x2715;</button>
+</div>
+
 </body>
 </html>
