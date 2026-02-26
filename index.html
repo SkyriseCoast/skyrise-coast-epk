@@ -657,7 +657,7 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
   background-size: 160px 160px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   /* Very thin top+sides → dramatic thick bottom: true Polaroid 600 proportions */
-  padding: 7px 7px 86px;
+  padding: 7px 7px 18px;
   box-shadow:
     0 2px 4px  rgba(30,20,5,0.18),
     0 8px 22px rgba(30,20,5,0.22),
@@ -711,18 +711,43 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
 /* Caption strip (bottom white area) — inherits aged card background */
 .polaroid-caption {
   background: transparent;
-  padding: 10px 10px 0;
-  min-height: 52px;
+  padding: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+.polaroid-caption img {
+  width: auto;
+  max-width: 92%;
+  max-height: 88px;
+  display: block;
+}
+
+/* ── Song postcard cards strip ── */
+.song-cards-strip {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  align-items: stretch;
+}
+.song-card-item {
+  flex: 1;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid rgba(0,0,0,0.06); /* faint perforation line */
 }
-.polaroid-caption img {
-  max-width: 88%;
-  max-height: 46px;
-  object-fit: contain;
-  mix-blend-mode: multiply; /* handwritten ink blends into aged paper */
+.song-card-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: none !important;
+  max-width: 100% !important;
+  mix-blend-mode: multiply;
+}
+@media (max-width: 480px) {
+  .song-cards-strip { gap: 4px; }
 }
 
 /* ── Simplified overlay (no top ticker, bottom only) ── */
@@ -817,11 +842,11 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
       <p class="section-label">About</p>
       <h2 class="section-title">LATE-NIGHTS  &amp;<br/><em>MELANCHOLY</em></h2>
   <div class="bio-text">
-  <p>Skyrise Coast is a Brooklyn-based indie project crafted from Upper West Bushwick.</p>
+  <p>Skyrise Coast is a Brooklyn-based indie music project.</p>
 
-  <p>The sound folds jazzy undercurrents into surf guitar shimmer, and indie-rock closeness. It's cool on the surface, and vulnerable underneath, where bright melodies move through shadowy air.</p>
+  <p>Jazzy undercurrents move through surf guitar shimmer and indie rock closeness.</p>
 
-  <p>It’s music for never-ending city nights, and love as a casino, and the kind of deep-bar conversations you swear you’ll remember until you never see them again, and heartbreak stretched across the Mediterranean.</p>
+  <p>It’s music for never ending city nights, a tough hand under soft lighting where love is a casino, deep bar conversations at last call, and heartbreak stretched across the Mediterranean.</p>
 </div>
         <div class="stat-row">
          
@@ -1002,7 +1027,13 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
 
       <div class="live-play-overlay" onclick="openVideoModal('https://player.vimeo.com/video/1167004852?h=d3915e553c&title=0&byline=0&portrait=0')" role="button" aria-label="Play video"></div>
       </div><!-- end .live-player -->
-      <div class="polaroid-caption"></div>
+      <div class="polaroid-caption">
+        <div class="song-cards-strip">
+          <div class="song-card-item"><img src="media/note_fire.svg" alt="Fire"></div>
+          <div class="song-card-item"><img src="media/note_fire_detail.svg" alt="in Mazzarò, Sicilia · 2.8.25"></div>
+          <div class="song-card-item"><img src="media/note_skyrisecoast.svg" alt="@Skyrise Coast"></div>
+        </div>
+      </div>
     </div><!-- end .live-card -->
 
     <!-- SESSIONE SICILIA 02 -->
@@ -1040,7 +1071,13 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
 
       <div class="live-play-overlay" onclick="openVideoModal('https://player.vimeo.com/video/1166991563?h=2cb837fbe9&title=0&byline=0&portrait=0')" role="button" aria-label="Play video"></div>
       </div><!-- end .live-player -->
-      <div class="polaroid-caption"></div>
+      <div class="polaroid-caption">
+        <div class="song-cards-strip">
+          <div class="song-card-item"><img src="media/note_youngfree.svg" alt="Young &amp; Free"></div>
+          <div class="song-card-item"><img src="media/note_youngfree_detail.svg" alt="in Mazzarò, Sicilia · 1.8.25"></div>
+          <div class="song-card-item"><img src="media/note_skyrisecoast.svg" alt="@Skyrise Coast"></div>
+        </div>
+      </div>
     </div><!-- end .live-card -->
 
     </div><!-- end live-group-duo -->
@@ -1084,7 +1121,13 @@ footer { border-top:1px solid rgba(139,102,24,0.15); padding:28px 24px; display:
 
       <div class="live-play-overlay" onclick="openVideoModal('https://player.vimeo.com/video/1166992311?h=56aadfd522&title=0&byline=0&portrait=0')" role="button" aria-label="Play video"></div>
       </div><!-- end .live-player -->
-      <div class="polaroid-caption"></div>
+      <div class="polaroid-caption">
+        <div class="song-cards-strip">
+          <div class="song-card-item"><img src="media/note_almostlove.svg" alt="Almost Love"></div>
+          <div class="song-card-item"><img src="media/note_almostlove_detail.svg" alt="w/ Jasmine Li · Bushwick, NYC · 1.19.26"></div>
+          <div class="song-card-item"><img src="media/note_skyrisecoast.svg" alt="@Skyrise Coast"></div>
+        </div>
+      </div>
     </div><!-- end .live-card -->
 
     </div><!-- end live-group-solo -->
